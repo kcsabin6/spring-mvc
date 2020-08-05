@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        
+        
+        <!--   initialize mvc framework -->
+        <mvc:annotation-driven />
+        
+       <!--  allow images to process  -->
+        <mvc:resources mapping="/img/**" location="/img/" />
+        
+      <!-- It is where controller resides , creates bean of main class file -->
+        <context:component-scan base-package="com.modelRev" />
+        
+        <!-- it dispatches return value,attach prefix and suffix and dispatch to view window  -->
+        <bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+      <!-- it creates the bean of ProfileDao and profileDaoImpl related to the com.modelRev.dao package -->
+	<context:component-scan base-package="com.modelRev.dao"/>  
+	
+        <!-- Initialization for data source  for database connection-->
+   <bean id="pdataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name = "driverClassName" value = "com.mysql.jdbc.Driver"/>
+      <property name = "url" value = "jdbc:mysql://localhost:3306/vehicle_db"/>
+      <property name = "username" value = "root"/>
+      <property name = "password" value = "pelehuku"/>
+   </bean>
+        
+        
+        </beans>

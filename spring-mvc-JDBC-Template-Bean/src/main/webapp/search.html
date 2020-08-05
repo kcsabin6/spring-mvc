@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Search</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	</script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+
+.semere {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+
+<script>
+function searchProfile(){
+	var pemail=$("#email").val();//get email value from button
+	
+	//fetch is used to make Ajax call
+	//method Get
+	
+	var promise=fetch("ajaxSearchProfileServlet?email="+pemail);//use fact Servlet to pass num
+	promise.then(rep=>rep.json()).then(function(data){//after fetch is sucessful, read value of the objects(json)
+	//	data is javascript object created by then
+	// data={"message":"The Factorial of 5 is 120","result":120,"num":5}
+		console.log(data);
+	$("#pname").html(data.name);
+	$("#pemail").html(data.email);
+	$("#pusername").html(data.username);
+	$("#pmobile").html(data.mobile);
+	$("#pqualification").html(data.qualification);
+	//<img id="pstudentImage"  src="img/student.png" class="semere"  style="height: 50px;">
+	$("#pstudentImage").attr("src",data.photo);
+	
+	
+	
+	});
+	
+}
+
+
+</script>
+
+
+
+</head>
+<body>
+	<header style="background-color: #03a9f4; height: 30px;">
+	   <b>SEARCH AJAX MAGIC</b> 
+	   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
+	 </header>
+	<div  class="container">
+	     <hr style="border-top: 5px solid rgba(103,58,183,1);"/>
+		<img id="studentImage"  src="img/student.png" class="semere"  style="height: 200px;">
+		<div  class="semere"   style="width: 50%">
+		 
+		
+		   <hr/>
+		 			
+		            <label for="email">Enter email </label>
+		            <input type="text" name="email" class="form-control" id="email">
+		             <hr/> 
+		<button type="button" class="btn btn-primary" onclick="searchProfile();">Search Profile</button>
+		<hr/>
+		<table class="table table-bordered">
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td id="pname">pname</td>
+      </tr>
+    </thead>
+    
+      <tr>
+        <td>Username</td>
+        <td id="pusername">john@123.com</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td id="pemail">mary@example.com</td>
+      </tr>
+      <tr>
+        <td>Qualification</td>
+        <td id="pqualification">B.Tech</td>
+      </tr>
+      <tr>
+        <td>Mobile</td>
+        <td id="pmobile">123456</td>
+      </tr>
+      <tr>
+        <td>Photo</td>
+        <td><img id="pstudentImage"  src="img/student.png" class="semere"  style="height: 50px;"></td>
+      </tr>
+   
+  </table>
+		</div>
+	</div>
+
+</body>
+</html>
